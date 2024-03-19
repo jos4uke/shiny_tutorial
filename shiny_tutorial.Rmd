@@ -1,0 +1,22 @@
+---
+title: "Développement d'une application Shiny"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+```
+
+
+### Introduction
+
+Pour le tutoriel, nous allons utiliser un jeu de données intégré à R, nommé Iris. Il recense les tailles de pétales et de sépales pour un ensemble d'individus "iris" de trois espèces différentes, setosa, versicolor et virginica.
+
+Exécuter le code, bouton `Run code`, suivant pour afficher les premières lignes du jeu de données:
+
+```{r iris, exercise=TRUE}
+head(iris)
+```
+
+
