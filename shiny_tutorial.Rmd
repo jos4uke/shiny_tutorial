@@ -102,12 +102,7 @@ Créer une reactive avec reactive({}) pour générer un cluster sur le tableau d
 
 ```{r server_R_clusters, exercise=TRUE}
 function(input, output, session) {
-  
-  # Combine the selected variables into a new data frame
-  selectedData <- reactive({
-    iris[, c(input$xcol, input$ycol)]
-  })
-  
+
 }
 ```
 
@@ -121,6 +116,41 @@ function(input, output, session) {
   
   clusters <- reactive({
     kmeans(selectedData(), input$clusters)
+  })
+}
+```
+
+### Générer le plot dynamique du clustering kmeans  
+
+Générer un graphique dynamique avec renderPlot{()} représentant le tableau dynamique avec la fonction plot() et colorer les points selon le cluster auquel ils appartiennent avec le paramètre « col ». Pour récupérer les clusters depuis la variable « clusters », utiliser clusters()\$cluster. Ranger le résultat dans output\$plot1 et le représenter côté UI dans le tabPanel « Plot ».
+
+```{r server_R_render_plot, exercise=TRUE}
+function(input, output, session) {
+
+}
+```
+
+```{r server_R_render_plot-solution}
+function(input, output, session) {
+  
+  # Combine the selected variables into a new data frame
+  selectedData <- reactive({
+    iris[, c(input$xcol, input$ycol)]
+  })
+  
+  clusters <- reactive({
+    kmeans(selectedData(), input$clusters)
+  })
+  
+  output$plot1 <- renderPlot({
+    palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
+              "#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999"))
+    
+    par(mar = c(5.1, 4.1, 0, 1))
+    plot(selectedData(),
+         col = clusters()$cluster,
+         pch = 20, cex = 3)
+    points(clusters()$centers, pch = 4, cex = 4, lwd = 4)
   })
 }
 ```
