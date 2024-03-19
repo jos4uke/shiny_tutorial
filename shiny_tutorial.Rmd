@@ -1,7 +1,20 @@
 ---
 title: "Développement d'une application Shiny"
-output: learnr::tutorial
+author:
+  - name: "Amandine Velt"
+    orcid: "0000-0002-3287-0786"
+    affiliations: "SVQV"
+  - name: "Joseph Tran"
+    orcid: "0000-0002-4624-0363"
+    affiliations: "EGFV"
+date: "2024-03-19"
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
 runtime: shiny_prerendered
+description: >
+  Learn how to build a shiny application.
 ---
 
 ```{r setup, include=FALSE}
@@ -9,14 +22,44 @@ library(learnr)
 ```
 
 
-### Introduction
+## Introduction
 
 Pour le tutoriel, nous allons utiliser un jeu de données intégré à R, nommé Iris. Il recense les tailles de pétales et de sépales pour un ensemble d'individus "iris" de trois espèces différentes, setosa, versicolor et virginica.
 
-Exécuter le code, bouton `Run code`, suivant pour afficher les premières lignes du jeu de données:
+Exécuter le code suivant, bouton `Run code`, pour afficher les premières lignes du jeu de données:
 
 ```{r iris, exercise=TRUE}
 head(iris)
 ```
 
 
+## Base d'une application Shiny
+
+La base de notre application Shiny de départ est comprise dans deux fichiers obligatoires au fonctionnement d'une application Shiny, `ui.R` et `server.R`.
+
+### ui.R
+
+Voici un exemple de `ui.R` que nous allons utiliser.
+
+```{r ui_R, exercise=TRUE}
+# k-means only works with numerical variables,
+# so don't give the user the option to select
+# a categorical variable
+vars <- setdiff(names(iris), "Species")
+
+pageWithSidebar(
+  headerPanel('Iris k-means clustering'),
+  sidebarPanel(
+    selectInput('xcol', 'X Variable', vars),
+    selectInput('ycol', 'Y Variable', vars, selected = vars[[2]]),
+    numericInput('clusters', 'Cluster count', 3, min = 1, max = 9)
+  ),
+  mainPanel(
+    tabsetPanel(type = "tabs",
+                tabPanel("Plot", plotOutput('plot1')),
+                tabPanel("Summary", verbatimTextOutput("summary")),
+                tabPanel("Table", tableOutput("table"))
+    )
+  )
+)
+```
