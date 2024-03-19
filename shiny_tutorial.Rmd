@@ -63,3 +63,36 @@ pageWithSidebar(
   )
 )
 ```
+
+### server.R
+
+Exemple de fichier server.R vide : 
+
+```{r server_R, exercise=FALSE, eval=FALSE}
+function(input, output, session) {
+
+}
+```
+
+Il s'agit maintenant de remplir le fichier server.R pour obtenir des résultats dans les tabPanel "Plot", "Summary" et "Table".  
+
+### Générer un tableau dynamique avec reactive({})
+
+Créer une reactive avec reactive({}) pour générer un tableau dynamique récupérant les 2 colonnes correspondant aux variables X et Y sélectionnées par l’utilisateur sur les données iris et ranger ce tableau dans une variable « selectedData »
+
+```{r server_R_selected_data, exercise=TRUE}
+function(input, output, session) {
+
+}
+```
+
+```{r server_R_selected_data-solution}
+function(input, output, session) {
+  
+  # Combine the selected variables into a new data frame
+  selectedData <- reactive({
+    iris[, c(input$xcol, input$ycol)]
+  })
+}
+```
+
