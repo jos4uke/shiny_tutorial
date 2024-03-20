@@ -305,6 +305,105 @@ pageWithSidebar(
 # }
 ```
 
+### Générer un résumé statistique du tableau dynamique
+
+Générer un texte dynamique avec renderPrint({}) représentant un résumé statistique du tableau dynamique généré précédemment avec la fonction summary() et ranger le résultat dans output$summary, puis le représenter côté UI dans le tabPanel « Summary ».
+
+```{r server_R_render_print, exercise=TRUE, context = "server", exercise.warn_invisible=TRUE}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+# }
+```
+
+```{r server_R_render_print-hint-1}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+  # Generate a summary of the data ----
+  output$summary <- renderPrint({...})
+
+# }
+```
+
+```{r server_R_render_print-hint-2}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+  # Generate a summary of the data ----
+  output$summary <- renderPrint({
+    summary(...)
+  })
+
+# }
+```
+
+```{r server_R_render_print-hint-3}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+  # Generate a summary of the data ----
+  output$summary <- renderPrint({
+    summary(selectedData())
+  })
+
+# }
+```
+
+```{r server_R_render_print-solution}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+  
+  # Generate a summary of the data ----
+  output$summary <- renderPrint({
+    summary(selectedData())
+  })
+  
+# }
+```
+
+### Solution
+
+Et voilà ce que contient `output$summary`:
+
+```{r server_R_render_print-display, echo=FALSE}
+vars <- setdiff(names(iris), "Species")
+
+pageWithSidebar(
+  headerPanel('Iris k-means clustering'),
+  sidebarPanel(
+    selectInput('xcol_smry', 'X Variable', vars),
+    selectInput('ycol_smry', 'Y Variable', vars, selected = vars[[2]]),
+    numericInput('clusters_smry', 'Cluster count', 3, min = 1, max = 9)
+  ),
+  mainPanel(
+    tabsetPanel(type = "tabs",
+                  tabPanel("Summary", verbatimTextOutput("print_summary"))
+    )
+  )
+)
+```
+
+```{r server_R_render_print-print, context = "server"}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+  # Combine the selected variables into a new data frame
+  smryselectedData <- reactive({
+    iris[, c(input$xcol_smry, input$ycol_smry)]
+  })
+
+  smryclusters <- reactive({
+    kmeans(smryselectedData(), input$clusters_smry)
+  })
+
+  output$print_summary <- renderPrint({
+    summary(smryselectedData())
+  })
+  
+# }
+```
+
   clusters <- reactive({
     kmeans(selectedData(), input$clusters)
   })
