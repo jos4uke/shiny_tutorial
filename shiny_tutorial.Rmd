@@ -208,6 +208,103 @@ pageWithSidebar(
 # }
 ```
   
+### Générer un tableau des données sélectionnées pour le graphique
+
+Afficher le tableau dynamique avec renderTable{()} représentant le tableau utilisé pour générer le graphique et ranger le résultat dans output$table. Représenter cette table côté UI dans le tabPanel « Table ».  
+
+```{r server_R_render_table, exercise=TRUE, context = "server", exercise.warn_invisible=TRUE}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+# }
+```
+
+```{r server_R_render_table-hint-1}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+  output$table <- renderTable({...})
+
+# }
+```
+
+```{r server_R_render_table-hint-2}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+  output$table <- renderTable({
+    selectedData()
+  })
+
+# }
+```
+
+```{r server_R_render_table-solution}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+  
+  output$table <- renderTable({
+    selectedData()
+  })
+
+# }
+```
+
+### Solution
+
+Et voilà ce que contient `output$table`:
+
+```{r server_R_render_table-display, echo=FALSE}
+vars <- setdiff(names(iris), "Species")
+
+pageWithSidebar(
+  headerPanel('Iris: print selected data table'),
+  sidebarPanel(
+    selectInput('xcol_tbl', 'X Variable', vars),
+    selectInput('ycol_tbl', 'Y Variable', vars, selected = vars[[2]]),
+    numericInput('clusters_tbl', 'Cluster count', 3, min = 1, max = 9)
+  ),
+  mainPanel(
+    tabsetPanel(type = "tabs",
+                  tabPanel("Table", DT::dataTableOutput("tbl_selectedData"))
+    )
+  )
+)
+```
+
+```{r server_R_render_table-print, context = "server"}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+  # Combine the selected variables into a new data frame
+  tblselectedData <- reactive({
+    iris[, c(input$xcol_tbl, input$ycol_tbl)]
+  })
+
+  output$tbl_selectedData <- DT::renderDataTable(
+    DT::datatable(
+      tblselectedData(),
+      options = list(
+        dom = 'Bfrtip',
+        lengthMenu = list(c(5, 15, -1), c('5', '15', 'All')),
+        pageLength = 15,
+        buttons = list(
+            list(
+              extend = "collection",
+              text = 'Show All',
+              action = DT::JS("function ( e, dt, node, config ) {
+                                    dt.page.len(-1);
+                                    dt.ajax.reload();
+                                }")
+            )
+          )
+        )
+    )
+  )
+
+# }
+```
+
   clusters <- reactive({
     kmeans(selectedData(), input$clusters)
   })
