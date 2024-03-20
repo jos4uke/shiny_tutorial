@@ -155,7 +155,7 @@ function(input, output, session) {
 }
 ```
 
-### Généer un résumé statistique du tableau dynamique
+### Générer un résumé statistique du tableau dynamique
 
 Générer un texte dynamique avec renderPrint({}) représentant un résumé statistique du tableau dynamique généré précédemment avec la fonction summary() et ranger le résultat dans output$summary, puis le représenter côté UI dans le tabPanel « Summary ».
 
