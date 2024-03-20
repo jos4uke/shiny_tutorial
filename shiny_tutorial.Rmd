@@ -34,10 +34,28 @@ Exécuter le code suivant, bouton `Run code`, pour afficher les premières ligne
 head(iris)
 ```
 
+## Développer une application Shiny
 
-## Base d'une application Shiny
+### Créer une application Shiny
 
-La base de notre application Shiny de départ est comprise dans deux fichiers obligatoires au fonctionnement d'une application Shiny, `ui.R` et `server.R`.
+Créer un répertoire pour l’application avec **RStudio**.
+
+```bash
+File -> New Project -> New Directory -> Shiny Web Application
+```
+
+Choisir une application **Multiple File**.
+
+Si cette option n’est pas disponible (ça peut dépendre des versions de Rstudio), on pourra utiliser
+
+```bash
+File -> New File -> Shiny Web App -> Multiple File
+```
+
+Deux fichier sont automatiquement générés : `ui.R` et `server.R`. Lancer l’application en cliquant sur le bouton `Run App`.
+
+  * Changer le titre de l’application. On pourra l’appeler My first application.
+  * Mettre à jour et vérifier que le titre a bien été changé.
 
 ### ui.R
 
