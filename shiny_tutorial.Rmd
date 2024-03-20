@@ -404,10 +404,99 @@ pageWithSidebar(
 # }
 ```
 
+### Générer le clustering k-means dans une fonction reactive({})
+
+Créer une reactive avec reactive({}) pour générer un cluster sur le tableau dynamique précédent, utilisant la variable « Cluster count » comme nombre de clusters à créer et ranger ce résultat dans une variable « clusters ». Utiliser la fonction kmeans() pour générer ces clusters.
+
+```{r server_R_clusters, exercise=TRUE, exercise.warn_invisible=TRUE}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+# }
+```
+
+```{r server_R_clusters-hint-1}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+  clusters <- reactive({...})
+
+# }
+```
+
+```{r server_R_clusters-hint-2}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+  clusters <- reactive({
+    kmeans(...)
+  })
+
+# }
+```
+
+```{r server_R_clusters-hint-3}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+  
   clusters <- reactive({
     kmeans(selectedData(), input$clusters)
   })
-}
+
+# }
+```
+
+```{r server_R_clusters-solution}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+  
+  clusters <- reactive({
+    kmeans(selectedData(), input$clusters)
+  })
+
+# }
+```
+
+### Solution
+
+Et voilà ce que contient `clusters`:
+
+```{r server_R_clusters-display, echo=FALSE}
+vars <- setdiff(names(iris), "Species")
+
+pageWithSidebar(
+  headerPanel('Iris print k-means clustering results'),
+  sidebarPanel(
+    selectInput('xcol_km', 'X Variable', vars),
+    selectInput('ycol_km', 'Y Variable', vars, selected = vars[[2]]),
+    numericInput('clusters_km', 'Cluster count', 3, min = 1, max = 9)
+  ),
+  mainPanel(
+    tabsetPanel(type = "tabs",
+                  tabPanel("K-means clusters", verbatimTextOutput("km_clusters"))
+    )
+  )
+)
+```
+
+```{r server_R_clusters-print, context = "server"}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+  # Combine the selected variables into a new data frame
+  kmselectedData <- reactive({
+    iris[, c(input$xcol_km, input$ycol_km)]
+  })
+
+  kmclusters <- reactive({
+    kmeans(kmselectedData(), input$clusters_km)
+  })
+
+  output$km_clusters <- renderPrint({
+    kmclusters()
+  })
+  
+# }
 ```
 
 ### Générer le plot dynamique du clustering kmeans  
