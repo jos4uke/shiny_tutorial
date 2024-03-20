@@ -208,100 +208,103 @@ pageWithSidebar(
 # }
 ```
   
-### Générer un tableau des données sélectionnées pour le graphique
 
-Afficher le tableau dynamique avec renderTable{()} représentant le tableau utilisé pour générer le graphique et ranger le résultat dans output$table. Représenter cette table côté UI dans le tabPanel « Table ».  
+### Générer un résumé statistique du tableau dynamique
 
-```{r server_R_render_table, exercise=TRUE, context = "server", exercise.warn_invisible=TRUE}
+Générer un texte dynamique avec renderPrint({}) représentant un résumé statistique du tableau dynamique généré précédemment avec la fonction summary() et ranger le résultat dans output$summary, puis le représenter côté UI dans le tabPanel « Summary ».
+
+```{r server_R_render_print, exercise=TRUE, context = "server", exercise.warn_invisible=TRUE}
 # function(input, output, session) {
 # ajouter votre code ci-dessous
 
 # }
 ```
 
-```{r server_R_render_table-hint-1}
+```{r server_R_render_print-hint-1}
 # function(input, output, session) {
 # ajouter votre code ci-dessous
 
-  output$table <- renderTable({...})
+  # Generate a summary of the data ----
+  output$summary <- renderPrint({...})
 
 # }
 ```
 
-```{r server_R_render_table-hint-2}
+```{r server_R_render_print-hint-2}
 # function(input, output, session) {
 # ajouter votre code ci-dessous
 
-  output$table <- renderTable({
-    selectedData()
+  # Generate a summary of the data ----
+  output$summary <- renderPrint({
+    summary(...)
   })
 
 # }
 ```
 
-```{r server_R_render_table-solution}
+```{r server_R_render_print-hint-3}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+  # Generate a summary of the data ----
+  output$summary <- renderPrint({
+    summary(selectedData())
+  })
+
+# }
+```
+
+```{r server_R_render_print-solution}
 # function(input, output, session) {
 # ajouter votre code ci-dessous
   
-  output$table <- renderTable({
-    selectedData()
+  # Generate a summary of the data ----
+  output$summary <- renderPrint({
+    summary(selectedData())
   })
-
+  
 # }
 ```
 
 ### Solution
 
-Et voilà ce que contient `output$table`:
+Et voilà ce que contient `output$summary`:
 
-```{r server_R_render_table-display, echo=FALSE}
+```{r server_R_render_print-display, echo=FALSE}
 vars <- setdiff(names(iris), "Species")
 
 pageWithSidebar(
-  headerPanel('Iris: print selected data table'),
+  headerPanel('Iris k-means clustering'),
   sidebarPanel(
-    selectInput('xcol_tbl', 'X Variable', vars),
-    selectInput('ycol_tbl', 'Y Variable', vars, selected = vars[[2]]),
-    numericInput('clusters_tbl', 'Cluster count', 3, min = 1, max = 9)
+    selectInput('xcol_smry', 'X Variable', vars),
+    selectInput('ycol_smry', 'Y Variable', vars, selected = vars[[2]]),
+    numericInput('clusters_smry', 'Cluster count', 3, min = 1, max = 9)
   ),
   mainPanel(
     tabsetPanel(type = "tabs",
-                  tabPanel("Table", DT::dataTableOutput("tbl_selectedData"))
+                  tabPanel("Summary", verbatimTextOutput("print_summary"))
     )
   )
 )
 ```
 
-```{r server_R_render_table-print, context = "server"}
+```{r server_R_render_print-print, context = "server"}
 # function(input, output, session) {
 # ajouter votre code ci-dessous
 
   # Combine the selected variables into a new data frame
-  tblselectedData <- reactive({
-    iris[, c(input$xcol_tbl, input$ycol_tbl)]
+  smryselectedData <- reactive({
+    iris[, c(input$xcol_smry, input$ycol_smry)]
   })
 
-  output$tbl_selectedData <- DT::renderDataTable(
-    DT::datatable(
-      tblselectedData(),
-      options = list(
-        dom = 'Bfrtip',
-        lengthMenu = list(c(5, 15, -1), c('5', '15', 'All')),
-        pageLength = 15,
-        buttons = list(
-            list(
-              extend = "collection",
-              text = 'Show All',
-              action = DT::JS("function ( e, dt, node, config ) {
-                                    dt.page.len(-1);
-                                    dt.ajax.reload();
-                                }")
-            )
-          )
-        )
-    )
-  )
+  smryclusters <- reactive({
+    kmeans(smryselectedData(), input$clusters_smry)
+  })
 
+  output$print_summary <- renderPrint({
+    summary(smryselectedData())
+  })
+  
 # }
 ```
 
