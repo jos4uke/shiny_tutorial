@@ -100,39 +100,113 @@ Il s'agit maintenant de remplir le fichier server.R pour obtenir des résultats 
 
 Créer une reactive avec reactive({}) pour générer un tableau dynamique récupérant les 2 colonnes correspondant aux variables X et Y sélectionnées par l’utilisateur sur les données iris et ranger ce tableau dans une variable « selectedData »
 
-```{r server_R_selected_data, exercise=TRUE}
-function(input, output, session) {
+```{r server_R_selected_data, exercise=TRUE, exercise.warn_invisible=TRUE}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
 
-}
+# }
+```
+
+```{r server_R_selected_data-hint-1}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+  # Combine the selected variables into a new data frame
+  selectedData <- reactive({...})
+
+# }
+```
+
+```{r server_R_selected_data-hint-2}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+  # Combine the selected variables into a new data frame
+  selectedData <- reactive({
+    iris[, ... ]
+})
+
+# }
+```
+
+```{r server_R_selected_data-hint-3}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+  
+  # Combine the selected variables into a new data frame
+  selectedData <- reactive({
+    iris[, c(input$xcol, input$ycol)]
+  })
+
+# }
 ```
 
 ```{r server_R_selected_data-solution}
-function(input, output, session) {
+# function(input, output, session) {
+# ajouter votre code ci-dessous
   
   # Combine the selected variables into a new data frame
   selectedData <- reactive({
     iris[, c(input$xcol, input$ycol)]
   })
-}
+
+# }
 ```
 
-### Générer le clustering k-means dasn une fonction reactive({})
+### Solution
 
-Créer une reactive avec reactive({}) pour générer un cluster sur le tableau dynamique précédent, utilisant la variable « Cluster count » comme nombre de clusters à créer et ranger ce résultat dans une variable « clusters ». Utiliser la fonction kmeans() pour générer ces clusters.
+Et voilà ce que contient `selectedData`:
 
-```{r server_R_clusters, exercise=TRUE}
-function(input, output, session) {
+```{r server_R_selected_data-display, echo=FALSE}
+vars <- setdiff(names(iris), "Species")
 
-}
+pageWithSidebar(
+  headerPanel('Iris: select data'),
+  sidebarPanel(
+    selectInput('xcol_sd', 'X Variable', vars),
+    selectInput('ycol_sd', 'Y Variable', vars, selected = vars[[2]]),
+    numericInput('clusters_sd', 'Cluster count', 3, min = 1, max = 9)
+  ),
+  mainPanel(
+    tabsetPanel(type = "tabs",
+                tabPanel("Selected data", DT::dataTableOutput("sd_selectedData"))
+    )
+  )
+)
 ```
 
-```{r server_R_clusters-solution}
-function(input, output, session) {
-  
+```{r server_R_selected_data-print, echo=TRUE, context = "server"}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
   # Combine the selected variables into a new data frame
   selectedData <- reactive({
-    iris[, c(input$xcol, input$ycol)]
+    iris[, c(input$xcol_sd, input$ycol_sd)]
   })
+
+  output$sd_selectedData <- DT::renderDataTable(
+    DT::datatable(
+      selectedData(),
+      options = list(
+        dom = 'Bfrtip',
+        lengthMenu = list(c(5, 15, -1), c('5', '15', 'All')),
+        pageLength = 15,
+        buttons = list(
+            list(
+              extend = "collection",
+              text = 'Show All',
+              action = DT::JS("function ( e, dt, node, config ) {
+                                    dt.page.len(-1);
+                                    dt.ajax.reload();
+                                }")
+            )
+          )
+        )
+    )
+  )
+  
+# }
+```
   
   clusters <- reactive({
     kmeans(selectedData(), input$clusters)
