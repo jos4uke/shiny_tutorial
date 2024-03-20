@@ -59,9 +59,9 @@ Deux fichier sont automatiquement générés : `ui.R` et `server.R`. Lancer l’
 
 ### ui.R
 
-Voici un exemple de `ui.R` que nous allons utiliser.
+Voici un exemple de `ui.R` que nous allons utiliser. Lancer le code avec le bouton `Run code` pour voir le rendu.
 
-```{r ui_R, exercise=TRUE}
+```{r ui_R, exercise=TRUE, exercise.lines=20, eval=FALSE}
 # k-means only works with numerical variables,
 # so don't give the user the option to select
 # a categorical variable
