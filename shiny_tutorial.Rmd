@@ -56,7 +56,7 @@ Deux fichier sont automatiquement générés : `ui.R` et `server.R`. Lancer l’
 
   * Changer le titre de l’application. On pourra l’appeler My first application.
   * Mettre à jour et vérifier que le titre a bien été changé.
-
+    
 ### ui.R
 
 Voici un exemple de `ui.R` que nous allons utiliser. Lancer le code avec le bouton `Run code` pour voir le rendu.
@@ -132,11 +132,11 @@ Créer une reactive avec reactive({}) pour générer un tableau dynamique récup
 ```{r server_R_selected_data-hint-3}
 # function(input, output, session) {
 # ajouter votre code ci-dessous
-  
+
   # Combine the selected variables into a new data frame
   selectedData <- reactive({
     iris[, c(input$xcol, input$ycol)]
-  })
+})
 
 # }
 ```
@@ -144,7 +144,7 @@ Créer une reactive avec reactive({}) pour générer un tableau dynamique récup
 ```{r server_R_selected_data-solution}
 # function(input, output, session) {
 # ajouter votre code ci-dessous
-  
+
   # Combine the selected variables into a new data frame
   selectedData <- reactive({
     iris[, c(input$xcol, input$ycol)]
@@ -207,7 +207,7 @@ pageWithSidebar(
   
 # }
 ```
-  
+
 ### Générer un tableau des données sélectionnées pour le graphique
 
 Afficher le tableau dynamique avec renderTable{()} représentant le tableau utilisé pour générer le graphique et ranger le résultat dans output$table. Représenter cette table côté UI dans le tabPanel « Table ».  
@@ -591,7 +591,7 @@ Générer un graphique dynamique avec renderPlot{()} représentant le tableau dy
 ```{r server_R_render_plot-hint-6}
 # function(input, output, session) {
 # full solution
-  
+
   output$plot1 <- renderPlot({
     palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
               "#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999"))
@@ -650,16 +650,16 @@ pageWithSidebar(
 ```{r server_R_render_plot-print, context = "server"}
 # function(input, output, session) {
 # ajouter votre code ci-dessous
-  
+
   # Combine the selected variables into a new data frame
   plotselectedData <- reactive({
     iris[, c(input$xcol_plot, input$ycol_plot)]
   })
-  
+
   plotclusters <- reactive({
     kmeans(plotselectedData(), input$clusters_plot)
   })
-  
+
   output$print_clusters <- renderPrint({
     plotclusters()
   })
@@ -674,7 +674,7 @@ pageWithSidebar(
          pch = 20, cex = 3)
     points(plotclusters()$centers, pch = 4, cex = 4, lwd = 4)
   })
-
+  
 # }
 ```
 
