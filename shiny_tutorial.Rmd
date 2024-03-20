@@ -24,6 +24,8 @@ library(learnr)
 
 ## Introduction
 
+### Iris dataset
+
 Pour le tutoriel, nous allons utiliser un jeu de données intégré à R, nommé Iris. Il recense les tailles de pétales et de sépales pour un ensemble d'individus "iris" de trois espèces différentes, setosa, versicolor et virginica.
 
 Exécuter le code suivant, bouton `Run code`, pour afficher les premières lignes du jeu de données:
