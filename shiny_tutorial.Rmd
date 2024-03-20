@@ -503,23 +503,94 @@ pageWithSidebar(
 
 Générer un graphique dynamique avec renderPlot{()} représentant le tableau dynamique avec la fonction plot() et colorer les points selon le cluster auquel ils appartiennent avec le paramètre « col ». Pour récupérer les clusters depuis la variable « clusters », utiliser clusters()\$cluster. Ranger le résultat dans output\$plot1 et le représenter côté UI dans le tabPanel « Plot ».
 
-```{r server_R_render_plot, exercise=TRUE}
-function(input, output, session) {
+```{r server_R_render_plot, exercise=TRUE, exercise.warn_invisible=TRUE}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
 
-}
+# }
 ```
 
-```{r server_R_render_plot-solution}
-function(input, output, session) {
-  
-  # Combine the selected variables into a new data frame
-  selectedData <- reactive({
-    iris[, c(input$xcol, input$ycol)]
+```{r server_R_render_plot-hint-1}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+  output$plot1 <- renderPlot({...})
+
+# }
+```
+
+```{r server_R_render_plot-hint-2}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+  output$plot1 <- renderPlot({
+    # create a 9 colors palette
+    palette(...)
+    
   })
-  
-  clusters <- reactive({
-    kmeans(selectedData(), input$clusters)
+
+# }
+```
+
+```{r server_R_render_plot-hint-3}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+  output$plot1 <- renderPlot({
+    # create a 9 colors palette
+    palette(...)
+    
+    # define margins: replace *_margin placeholders by real values
+    par(mar = c(bottom_margin, left_margin, top_margin, right_margin))
   })
+
+# }
+```
+
+```{r server_R_render_plot-hint-4}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+  output$plot1 <- renderPlot({
+    # create a 9 colors palette
+    palette(...)
+    
+    # define margins: replace *_margin placeholders by real values
+    par(mar = c(bottom_margin, left_margin, top_margin, right_margin))
+    
+    # create the plot
+    plot(selectedData(),
+         ...)
+    
+  })
+
+# }
+```
+
+```{r server_R_render_plot-hint-5}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
+
+  output$plot1 <- renderPlot({
+    # create a 9 colors palette
+    palette(...)
+    
+    # define margins: replace *_margin placeholders by real values
+    par(mar = c(bottom_margin, left_margin, top_margin, right_margin))
+    
+    # create the plot: set the points color, shape, etc.
+    plot(selectedData(),
+         ...)
+    # add the cluster centers: set the points color, shape, etc. 
+    points(clusters()$centers, ...)
+  })
+
+# }
+```
+
+```{r server_R_render_plot-hint-6}
+# function(input, output, session) {
+# full solution
   
   output$plot1 <- renderPlot({
     palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
@@ -531,30 +602,13 @@ function(input, output, session) {
          pch = 20, cex = 3)
     points(clusters()$centers, pch = 4, cex = 4, lwd = 4)
   })
-}
+
+# }
 ```
 
-### Générer un résumé statistique du tableau dynamique
-
-Générer un texte dynamique avec renderPrint({}) représentant un résumé statistique du tableau dynamique généré précédemment avec la fonction summary() et ranger le résultat dans output$summary, puis le représenter côté UI dans le tabPanel « Summary ».
-
-```{r server_R_render_print, exercise=TRUE}
-function(input, output, session) {
-
-}
-```
-
-```{r server_R_render_print-solution}
-function(input, output, session) {
-  
-  # Combine the selected variables into a new data frame
-  selectedData <- reactive({
-    iris[, c(input$xcol, input$ycol)]
-  })
-  
-  clusters <- reactive({
-    kmeans(selectedData(), input$clusters)
-  })
+```{r server_R_render_plot-solution, context="server"}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
   
   output$plot1 <- renderPlot({
     palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
@@ -567,55 +621,61 @@ function(input, output, session) {
     points(clusters()$centers, pch = 4, cex = 4, lwd = 4)
   })
 
-  # Generate a summary of the data ----
-  output$summary <- renderPrint({
-    summary(selectedData())
-  })
-}
+# }
 ```
 
-### Générer un tableau des données sélectionnées pour le graphique
+### Solution
 
-Afficher le tableau dynamique avec renderTable{()} représentant le tableau utilisé pour générer le graphique et ranger le résultat dans output$table. Représenter cette table côté UI dans le tabPanel « Table ».  
+Et voilà ce que contient `output$plot1`:
 
-```{r server_R_render_table, exercise=TRUE}
-function(input, output, session) {
+```{r server_R_render_plot-display, echo=FALSE}
+vars <- setdiff(names(iris), "Species")
 
-}
+pageWithSidebar(
+  headerPanel('Iris plot k-means clustering results'),
+  sidebarPanel(
+    selectInput('xcol_plot', 'X Variable', vars),
+    selectInput('ycol_plot', 'Y Variable', vars, selected = vars[[2]]),
+    numericInput('clusters_plot', 'Cluster count', 3, min = 1, max = 9)
+  ),
+  mainPanel(
+    tabsetPanel(type = "tabs",
+                  tabPanel("K-means clusters plot", plotOutput("km_plot")),
+                tabPanel("K-means clusters", verbatimTextOutput("print_clusters"))
+    )
+  )
+)
 ```
 
-```{r server_R_render_table-solution}
-function(input, output, session) {
+```{r server_R_render_plot-print, context = "server"}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
   
   # Combine the selected variables into a new data frame
-  selectedData <- reactive({
-    iris[, c(input$xcol, input$ycol)]
+  plotselectedData <- reactive({
+    iris[, c(input$xcol_plot, input$ycol_plot)]
   })
   
-  clusters <- reactive({
-    kmeans(selectedData(), input$clusters)
+  plotclusters <- reactive({
+    kmeans(plotselectedData(), input$clusters_plot)
   })
   
-  output$plot1 <- renderPlot({
+  output$print_clusters <- renderPrint({
+    plotclusters()
+  })
+  
+  output$km_plot <- renderPlot({
     palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
               "#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999"))
     
     par(mar = c(5.1, 4.1, 0, 1))
     plot(selectedData(),
-         col = clusters()$cluster,
+         col = plotclusters()$cluster,
          pch = 20, cex = 3)
-    points(clusters()$centers, pch = 4, cex = 4, lwd = 4)
+    points(plotclusters()$centers, pch = 4, cex = 4, lwd = 4)
   })
 
-  # Generate a summary of the data ----
-  output$summary <- renderPrint({
-    summary(selectedData())
-  })
-  
-  output$table <- renderTable({
-    selectedData()
-  })
-}
+# }
 ```
 
 ## Application Shiny complète
