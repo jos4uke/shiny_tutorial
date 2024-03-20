@@ -208,110 +208,99 @@ pageWithSidebar(
 # }
 ```
   
+### Générer le clustering k-means dans une fonction reactive({})
 
-### Générer un résumé statistique du tableau dynamique
+Créer une reactive avec reactive({}) pour générer un cluster sur le tableau dynamique précédent, utilisant la variable « Cluster count » comme nombre de clusters à créer et ranger ce résultat dans une variable « clusters ». Utiliser la fonction kmeans() pour générer ces clusters.
 
-Générer un texte dynamique avec renderPrint({}) représentant un résumé statistique du tableau dynamique généré précédemment avec la fonction summary() et ranger le résultat dans output$summary, puis le représenter côté UI dans le tabPanel « Summary ».
-
-```{r server_R_render_print, exercise=TRUE, context = "server", exercise.warn_invisible=TRUE}
+```{r server_R_clusters, exercise=TRUE, exercise.warn_invisible=TRUE}
 # function(input, output, session) {
 # ajouter votre code ci-dessous
 
 # }
 ```
 
-```{r server_R_render_print-hint-1}
+```{r server_R_clusters-hint-1}
 # function(input, output, session) {
 # ajouter votre code ci-dessous
 
-  # Generate a summary of the data ----
-  output$summary <- renderPrint({...})
+  clusters <- reactive({...})
 
 # }
 ```
 
-```{r server_R_render_print-hint-2}
+```{r server_R_clusters-hint-2}
 # function(input, output, session) {
 # ajouter votre code ci-dessous
 
-  # Generate a summary of the data ----
-  output$summary <- renderPrint({
-    summary(...)
+  clusters <- reactive({
+    kmeans(...)
   })
 
 # }
 ```
 
-```{r server_R_render_print-hint-3}
-# function(input, output, session) {
-# ajouter votre code ci-dessous
-
-  # Generate a summary of the data ----
-  output$summary <- renderPrint({
-    summary(selectedData())
-  })
-
-# }
-```
-
-```{r server_R_render_print-solution}
+```{r server_R_clusters-hint-3}
 # function(input, output, session) {
 # ajouter votre code ci-dessous
   
-  # Generate a summary of the data ----
-  output$summary <- renderPrint({
-    summary(selectedData())
+  clusters <- reactive({
+    kmeans(selectedData(), input$clusters)
   })
+
+# }
+```
+
+```{r server_R_clusters-solution}
+# function(input, output, session) {
+# ajouter votre code ci-dessous
   
+  clusters <- reactive({
+    kmeans(selectedData(), input$clusters)
+  })
+
 # }
 ```
 
 ### Solution
 
-Et voilà ce que contient `output$summary`:
+Et voilà ce que contient `clusters`:
 
-```{r server_R_render_print-display, echo=FALSE}
+```{r server_R_clusters-display, echo=FALSE}
 vars <- setdiff(names(iris), "Species")
 
 pageWithSidebar(
-  headerPanel('Iris k-means clustering'),
+  headerPanel('Iris print k-means clustering results'),
   sidebarPanel(
-    selectInput('xcol_smry', 'X Variable', vars),
-    selectInput('ycol_smry', 'Y Variable', vars, selected = vars[[2]]),
-    numericInput('clusters_smry', 'Cluster count', 3, min = 1, max = 9)
+    selectInput('xcol_km', 'X Variable', vars),
+    selectInput('ycol_km', 'Y Variable', vars, selected = vars[[2]]),
+    numericInput('clusters_km', 'Cluster count', 3, min = 1, max = 9)
   ),
   mainPanel(
     tabsetPanel(type = "tabs",
-                  tabPanel("Summary", verbatimTextOutput("print_summary"))
+                  tabPanel("K-means clusters", verbatimTextOutput("km_clusters"))
     )
   )
 )
 ```
 
-```{r server_R_render_print-print, context = "server"}
+```{r server_R_clusters-print, context = "server"}
 # function(input, output, session) {
 # ajouter votre code ci-dessous
 
   # Combine the selected variables into a new data frame
-  smryselectedData <- reactive({
-    iris[, c(input$xcol_smry, input$ycol_smry)]
+  kmselectedData <- reactive({
+    iris[, c(input$xcol_km, input$ycol_km)]
   })
 
-  smryclusters <- reactive({
-    kmeans(smryselectedData(), input$clusters_smry)
+  kmclusters <- reactive({
+    kmeans(kmselectedData(), input$clusters_km)
   })
 
-  output$print_summary <- renderPrint({
-    summary(smryselectedData())
+  output$km_clusters <- renderPrint({
+    kmclusters()
   })
   
 # }
-```
-
-  clusters <- reactive({
-    kmeans(selectedData(), input$clusters)
-  })
-}
 ```
 
 ### Générer le plot dynamique du clustering kmeans  
