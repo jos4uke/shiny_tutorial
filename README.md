@@ -6,11 +6,8 @@
 2. To install all necessary packages, run the following command in R:
 
 ```r
-# if not the case, install renv first 
-install.packages("renv")
-
-# use renv lockfile to restore/install packages
-renv::restore()
+paks <- c("learnr", "rmarkdown", "DT")
+install.packages(paks)
 
 ``` 
 
