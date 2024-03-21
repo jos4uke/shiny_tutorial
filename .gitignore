@@ -3,3 +3,6 @@
 .RData
 .Ruserdata
 ShinyTuto.Rproj
+renv.lock
+renv/
+.Rprofile
