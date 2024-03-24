@@ -23,6 +23,7 @@ To be able to develop a shiny application alongside an active shiny tutorial, yo
 
 1. Stop and close any previous shiny tutorial that is running
 2. Create a new shiny project within RStudio
+  - `File -> New File -> Shiny Web App -> Multiple File`
 3. In the newly created shiny project, go to `Background jobs` tab and click on `Start  background job` to create a new background job
 4. Select `run_in_background.R` R script on clicking the `Browse` button
 5. Select the `shiny-tutorial` folder as the working directory on clicking the `Browse` button
