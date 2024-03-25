@@ -43,6 +43,8 @@ You need to follow some extra-steps:
 
 ### Run the tutorial on binder  
 
-Click on the following badge to run the tutorial on binder:
-
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/git/https%3A%2F%2Fforgemia.inra.fr%2Fjoseph.tran%2Fshiny-tutorial.git/HEAD)  
+Click on the following badge to run the tutorial on binder, it will open a new tab in your browser and you can start the tutorial from there:
+  
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/git/https%3A%2F%2Fforgemia.inra.fr%2Fjoseph.tran%2Fshiny-tutorial.git/main)  
+  
+Be patient, it could take a while to deploy the tutorial code on mybinder.org.  
