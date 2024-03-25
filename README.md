@@ -45,6 +45,6 @@ You need to follow some extra-steps:
 
 Click on the following badge to run the tutorial on binder, it will open a new tab in your browser and you can start the tutorial from there:
   
-[![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/jos4uke/shiny_tutorial/main?urlpath=shiny_tutorial/)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jos4uke/shiny_tutorial.git/main?urlpath=rstudio)
   
 Be patient, it could take a while to deploy the tutorial code on mybinder.org.  
