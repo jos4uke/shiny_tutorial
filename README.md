@@ -17,9 +17,15 @@ install.packages(paks)
 4. Execute the shiny tutorial using the button `Run the document`
 5. Follow the steps and complete the exercises  
 
-## Run the tutorial in the background
+## Run the tutorial alongside your shiny project
 
-To be able to develop a shiny application alongside an active shiny tutorial, you need to follow some extra-steps:
+To be able to develop a shiny application alongside an active shiny tutorial, 2 options are available:
+- run the tutorial in the background locally  
+- run the tutorial on binder  
+
+### Run the tutorial in the background locally
+
+You need to follow some extra-steps:
 
 1. Stop and close any previous shiny tutorial that is running
 2. Create a new shiny project within RStudio
@@ -34,3 +40,9 @@ To be able to develop a shiny application alongside an active shiny tutorial, yo
   - if you had already begun the tutorial, you can continue from where you left off (learnr keeps track of your progress)  
   - you may want to start over the tutorial if so click on `Start Over` button in the sidebar (`caution`: it will reset all your progress in the tutorial)      
 10. Continue working within the current shiny project
+
+### Run the tutorial on binder  
+
+Click on the following badge to run the tutorial on binder:
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/git/https%3A%2F%2Fforgemia.inra.fr%2Fjoseph.tran%2Fshiny-tutorial.git/HEAD)  
