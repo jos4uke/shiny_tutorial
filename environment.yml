@@ -1,7 +1,7 @@
 channels:
   - conda-forge
 dependencies:
-  - r-base=4.3.3
+  - r-base=3.6
   - r-shinydashboard
   - r-learnr
   - r-rmarkdown
