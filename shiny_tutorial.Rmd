@@ -21,8 +21,245 @@ description: >
 library(learnr)
 ```
 
+## Shiny Quizz  
 
-## Introduction
+### Shiny application/structure
+
+```{r shiny-quizz-0, echo=FALSE}
+quiz(
+  question("Qu'est-ce que Shiny?", 
+    answer("Un framework pour créer des applications web interactives avec R", correct = TRUE),
+    answer("Un espèce de pokémon rare"),
+    answer("Une crème contre les rayons bleus des écrans"),
+    answer("Un framework pour créer des applications web interactives avec Python", correct = TRUE)
+  ),
+  question("Combien de composants sont nécessaires pour créer une application Shiny ?", 
+    answer("1"),
+    answer("2", correct = TRUE),
+    answer("3"),
+    answer("4")
+  ),
+  question("Quels sont les deux composants nécessaires pour créer une application Shiny ?", 
+    answer("ui.R et server.R", correct = TRUE),
+    answer("ui.R et app.R"),
+    answer("server.R et app.R"),
+    answer("ui.R et ui.R")
+  ),
+  question("Quel est le composant qui permet de définir l'interface utilisateur dans une application Shiny ?", 
+    answer("ui.R", correct = TRUE),
+    answer("server.R"),
+    answer("app.R"),
+    answer("ui.R et server.R")
+  ),
+  question("Quel est le composant qui permet de définir le serveur dans une application Shiny ?", 
+    answer("server.R", correct = TRUE),
+    answer("ui.R"),
+    answer("app.R"),
+    answer("ui.R et server.R")
+  )
+)
+```
+
+### UI layout
+
+```{r shiny-quizz-1, echo=FALSE}
+quiz(
+  question("En combien de colonnes est divisée une ligne dans une application Shiny ?", 
+    answer("5"),
+    answer("8"),
+    answer("9"),
+    answer("12", correct = TRUE)
+  ),
+  question("Quelle fonction permet de créer une page avec une barre latérale dans une application Shiny ?", 
+    answer("sidebarLayout", correct = TRUE),
+    answer("pageWithSidebar", message="déprécié, utiliser sidebarLayout"),
+    answer("pageWithFooter"),
+    answer("fluidPage")
+  ),
+  question("Quelle fonction permet de créer un layout multipage dans une application Shiny ?", 
+    answer("navbarPage", correct = TRUE),
+    answer("tabsetPanel", correct = TRUE),
+    answer("navsetPanel", correct = TRUE),
+    answer("fluidPanel")
+  ),
+  question("Quelles sont les frameworks pour développer des dashboards en shiny?", 
+    answer("shinydashboard", correct = TRUE),
+    answer("shinybootstrap"),
+    answer("shiny.semantic", correct = TRUE),
+    answer("bslib", correct = TRUE),
+    answer("bs4Dash", correct = TRUE)
+    )
+)
+```
+
+### UI input functions
+
+```{r shiny-quizz-2, echo=FALSE}
+quiz(
+  question("Quelle fonction permet de créer un champ de texte dans une application Shiny ?", 
+    answer("wordInput"),
+    answer("selectInput"),
+    answer("numericInput"),
+    answer("textInput", correct = TRUE)
+  ),
+  question("Quelle fonction permet de créer un menu déroulant dans une application Shiny ?",
+    answer("wordInput"),
+    answer("selectInput", correct = TRUE),
+    answer("numericInput"),
+    answer("textInput")
+  ),
+  question("Quelle fonction permet de créer un champ numérique dans une application Shiny ?",
+    answer("wordInput"),
+    answer("selectInput"),
+    answer("numericInput", correct = TRUE),
+    answer("textInput")
+  ),
+  question("Quelles sont les types d'input disponibles dans une application Shiny ?",
+    answer("text", correct = TRUE),
+    answer("numeric", correct = TRUE),
+    answer("date", correct = TRUE),
+    answer("box"),
+    answer("email", correct = TRUE),
+    answer("checkbox", correct = TRUE),
+    answer("radio", correct = TRUE),
+    answer("address"),
+    answer("file", correct = TRUE),
+    random_answer_order = TRUE
+    ),
+  question("Quelle fonction permet de créer un curseur numérique dans une application Shiny ?",
+    answer("sliderInput", correct = TRUE),
+    answer("selectInput"),
+    answer("numericInput"),
+    answer("textInput")
+  )
+)
+
+```
+
+### Server rendering functions
+
+```{r shiny-quizz-3, echo=FALSE}
+quiz(
+  question("Quelle est la fonction qui permet de générer un graphique dans une application Shiny ?", 
+    answer("renderPlot", correct = TRUE),
+    answer("renderTable"),
+    answer("renderPrint"),
+    answer("renderDataTable")
+  ),
+  question("Quelle est la fonction qui permet de générer un tableau dans une application Shiny ?", 
+    answer("renderTable", correct = TRUE),
+    answer("renderPlot"),
+    answer("renderPrint"),
+    answer("renderDataTable")
+  ),
+  question("Quelle est la fonction qui permet de générer un texte dans une application Shiny ?", 
+    answer("renderPrint", correct = TRUE),
+    answer("renderTable"),
+    answer("renderPlot"),
+    answer("renderDataTable")
+  ),
+  question("Quelle est la fonction qui permet de générer un tableau dynamique dans une application Shiny ?", 
+    answer("renderDataTable", correct = TRUE),
+    answer("renderTable"),
+    answer("renderPrint"),
+    answer("renderPlot")
+  )
+)
+
+```
+
+### UI output functions
+
+```{r shiny-quizz-4, echo=FALSE}
+quiz(
+  question("Quelle fonction permet de générer un graphique dans une application Shiny ?", 
+    answer("plotOutput", correct = TRUE),
+    answer("tableOutput"),
+    answer("printOutput"),
+    answer("dataTableOutput")
+  ),
+  question("Quelle fonction permet de générer un tableau dans une application Shiny ?", 
+    answer("tableOutput", correct = TRUE),
+    answer("plotOutput"),
+    answer("printOutput"),
+    answer("dataTableOutput")
+  ),
+  question("Quelle fonction permet de générer un texte dans une application Shiny ?", 
+    answer("printOutput", correct = TRUE),
+    answer("tableOutput"),
+    answer("plotOutput"),
+    answer("dataTableOutput")
+  ),
+  question("Quelle fonction permet de générer un tableau dynamique dans une application Shiny ?", 
+    answer("dataTableOutput", correct = TRUE),
+    answer("tableOutput"),
+    answer("printOutput"),
+    answer("plotOutput")
+  )
+)
+```
+
+### Expressions réactives
+
+```{r shiny-quizz-5, echo=FALSE}
+quiz(
+  question("Quelle fonction permet de créer une dépendance entre une sortie et une autre expression dans une application Shiny ?", 
+    answer("reactive", correct = TRUE),
+    answer("radioactive"),
+    answer("renderactive"),
+    answer("proactive")
+  ),
+  question("Quelle fonction reactive permet d'isoler une action dans une application Shiny ?", 
+    answer("isolate", correct = TRUE),
+    answer("cache-cache"),
+    answer("lockdown"),
+    answer("iwanttobreakfree")
+  ),
+  question("Quelle fonction reactive permet de générer une dépendance à une seule variable dans une application Shiny ?", 
+    answer("reactiveVal", correct = TRUE),
+    answer("reactiveValues", message = "reactiveValues() est une fonction qui permet de stocker plusieurs valeurs réactives"),
+    answer("reactorVal"),
+    answer("proactorValues")
+  ),
+  question("Quand peut-on utiliser la fonction observe() dans une application Shiny ?",
+    answer("Pour modifier un object reactiveValues", correct = TRUE),
+    answer("Pour déclencher l'affichage d'une fenêtre contextuelle", correct = TRUE),
+    answer("Pour envoyer un email"),
+    answer("Pour modifier un élément de l'interface utilisateur")
+  ),
+  question("Quelle(s) fonction(s) reactive permet(tent) de générer une dépendance à un évènement et d'éxécuter une action dans une application Shiny ?", 
+    answer("observeEvent", correct = TRUE),
+    answer("observe"),
+    answer("eventReactive", correct = TRUE),
+    answer("observeInput"),
+    answer("reactiveEvent")
+  )
+)
+```
+
+### Déployer une application Shiny
+
+```{r shiny-quizz-6, echo=FALSE}
+quiz(
+  question("Quelles sont les solutions existantes pour déployer une application Shiny ?", 
+    answer("Shinyapps.io", correct = TRUE),
+    answer("Posit Connect", correct = TRUE),
+    answer("Shiny Server", correct = TRUE),
+    answer("Shiny Cloud")
+  ),
+  question("Quelle solution de déploiement utilise docker pour déployer une application Shiny ?", 
+    answer("shinyproxy", correct = TRUE),
+    answer("Posit Connect"),
+    answer("Shiny Server"),
+    answer("SK8", correct = TRUE),
+    answer("binder", correct = TRUE),
+    answer("Hugging Face Spaces", correct = TRUE)
+  )
+)
+
+```
+
+## Tutorial introduction
 
 ### Iris dataset
 
