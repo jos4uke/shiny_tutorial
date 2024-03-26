@@ -1008,3 +1008,4 @@ Il faudra ensuite suivre les étapes décrites sur la page de documentation [Tra
   
 Vous retrouverez une information complète sur le pipeline CI/CD de **SK8** sur la page de documentation [Pipeline CI/CD](https://docs.sk8.inrae.fr/021-pipeline.html).  
   
+Une fois votre application déployée, vous pourrez la mettre à jour en suivant les étapes décrites sur la page de documentation [Mettre à jour votre application](https://docs.sk8.inrae.fr/02-monapp.html#maj).  
