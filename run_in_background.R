@@ -1,1 +1,1 @@
-rmarkdown::run("shiny_tutorial.Rmd")
+rmarkdown::run("shiny_tutorial/shiny_tutorial.Rmd")
