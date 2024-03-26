@@ -984,3 +984,27 @@ output$table <- renderTable({
 })
 
 ```
+
+## Déploiement sur SK8  
+  
+### Rappel sur le workflow SK8 
+
+![](img/sk8_1.png)  
+  
+### Déployer une application Shiny sur SK8  
+  
+![](img/sk8_4.png)    
+Plus d'information sur le site web [https://sk8.inrae.fr](https://sk8.inrae.fr/)  
+
+Pour faire héberger son application sur **SK8**, vous pouvez suivre les étapes décrites sur la page de documentation [Faire une demande d'hébergement](https://docs.sk8.inrae.fr/01-hebergement.html):
+1. [Pré-requis à la demande](https://docs.sk8.inrae.fr/01-hebergement.html#pr%C3%A9-requis-%C3%A0-la-demande)  
+2. [Demande d'hébergement](https://docs.sk8.inrae.fr/01-hebergement.html#demande-dh%C3%A9bergement)  
+
+Une fois votre demande validée, vous recevrez un email avec les informations pour vous connecter à votre espace de travail sur **SK8**.
+
+Il faudra ensuite suivre les étapes décrites sur la page de documentation [Travailler avec mon dépôt](https://docs.sk8.inrae.fr/02-monapp.html):  
+1. [Contenu du dépôt - template SK8](https://docs.sk8.inrae.fr/02-monapp.html#templatesk8)  
+2. [Récupération locale et intégration de vos fichiers ](https://docs.sk8.inrae.fr/02-monapp.html#recupdepot) 3. [Publier votre application](https://docs.sk8.inrae.fr/02-monapp.html#publier)    
+  
+Vous retrouverez une information complète sur le pipeline CI/CD de **SK8** sur la page de documentation [Pipeline CI/CD](https://docs.sk8.inrae.fr/021-pipeline.html).  
+  
