@@ -989,11 +989,11 @@ output$table <- renderTable({
   
 ### Rappel sur le workflow SK8 
 
-![](img/sk8_1.png)  
+![](images/sk8_1.png){width="70%"} 
   
 ### Déployer une application Shiny sur SK8  
   
-![](img/sk8_4.png)    
+![](images/sk8_4.png){width="70%"}    
 Plus d'information sur le site web [https://sk8.inrae.fr](https://sk8.inrae.fr/)  
 
 Pour faire héberger son application sur **SK8**, vous pouvez suivre les étapes décrites sur la page de documentation [Faire une demande d'hébergement](https://docs.sk8.inrae.fr/01-hebergement.html):  
