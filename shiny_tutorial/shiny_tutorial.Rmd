@@ -29,7 +29,7 @@ library(learnr)
 quiz(
   question("Qu'est-ce que Shiny?", 
     answer("Un framework pour créer des applications web interactives avec R", correct = TRUE),
-    answer("Un espèce de pokémon rare"),
+    answer("Une espèce de pokémon rare"),
     answer("Une crème contre les rayons bleus des écrans"),
     answer("Un framework pour créer des applications web interactives avec Python", correct = TRUE)
   ),
@@ -76,13 +76,13 @@ quiz(
     answer("pageWithFooter"),
     answer("fluidPage")
   ),
-  question("Quelle fonction permet de créer un layout multipage dans une application Shiny ?", 
+  question("Quelles fonctions permettent de créer un layout multipages dans une application Shiny ?", 
     answer("navbarPage", correct = TRUE),
     answer("tabsetPanel", correct = TRUE),
     answer("navsetPanel", correct = TRUE),
     answer("fluidPanel")
   ),
-  question("Quelles sont les frameworks pour développer des dashboards en shiny?", 
+  question("Quels sont les frameworks pour développer des dashboards en shiny?", 
     answer("shinydashboard", correct = TRUE),
     answer("shinybootstrap"),
     answer("shiny.semantic", correct = TRUE),
@@ -114,7 +114,7 @@ quiz(
     answer("numericInput", correct = TRUE),
     answer("textInput")
   ),
-  question("Quelles sont les types d'input disponibles dans une application Shiny ?",
+  question("Quels sont les types d'input disponibles dans une application Shiny ?",
     answer("text", correct = TRUE),
     answer("numeric", correct = TRUE),
     answer("date", correct = TRUE),
@@ -203,7 +203,7 @@ quiz(
 
 ```{r shiny-quizz-5, echo=FALSE}
 quiz(
-  question("Quelle fonction permet de créer une dépendance entre une sortie et une autre expression dans une application Shiny ?", 
+  question("Quelle fonction permet de créer une dépendance entre un input côté UI et une autre expression côté serveur dans une application Shiny ?", 
     answer("reactive", correct = TRUE),
     answer("radioactive"),
     answer("renderactive"),
@@ -247,7 +247,7 @@ quiz(
     answer("Shiny Server", correct = TRUE),
     answer("Shiny Cloud")
   ),
-  question("Quelle solution de déploiement utilise docker pour déployer une application Shiny ?", 
+  question("Quelles solutions de déploiement utilise docker pour déployer une application Shiny ?", 
     answer("shinyproxy", correct = TRUE),
     answer("Posit Connect"),
     answer("Shiny Server"),
