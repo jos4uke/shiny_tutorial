@@ -79,7 +79,7 @@ quiz(
   question("Quelles fonctions permettent de créer un layout multipages dans une application Shiny ?", 
     answer("navbarPage", correct = TRUE),
     answer("tabsetPanel", correct = TRUE),
-    answer("navsetPanel", correct = TRUE),
+    answer("navlistPanel", correct = TRUE),
     answer("fluidPanel")
   ),
   question("Quels sont les frameworks pour développer des dashboards en shiny?", 
