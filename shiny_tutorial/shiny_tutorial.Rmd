@@ -456,7 +456,7 @@ quiz(
   question("Quelles solutions de déploiement utilise docker pour déployer une application Shiny ?", 
     answer("shinyproxy", 
            correct = TRUE,
-           message = "[shinyproxy](https://www.shinyproxy.io/)"),
+           message = "Shinyproxy utilise une infrastructure basé sur docker pour déployer une application Shiny [shinyproxy](https://www.shinyproxy.io/)"),
     answer("Posit Connect",
            message = "Posit Connect n'utilise pas docker pour déployer une application Shiny"),
     answer("Shiny Server",
